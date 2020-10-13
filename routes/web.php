@@ -16,3 +16,10 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->get('helo/{name}', function ($name) {
+    return 'hello, ' . $name;
+});
+$router->get('/product', 'ProductController@index');
+//memanggil function controller melalui root (dengan method index)
+$router->get('/product/{id}', 'ProductController@show');
