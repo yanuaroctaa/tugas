@@ -23,3 +23,6 @@ $router->get('helo/{name}', function ($name) {
 $router->get('/product', 'ProductController@index');
 //memanggil function controller melalui root (dengan method index)
 $router->get('/product/{id}', 'ProductController@show');
+
+$router->post('/product', 'ProductController@store');
+$router->delete('/product/{id}', 'ProductController@destroy');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Illuminate\Http\Client\Request;
 
 class ProductController extends Controller
 {
@@ -25,6 +26,39 @@ class ProductController extends Controller
             return response()->json([
                 'Message' => 'Produk berhasil',
                 'data' => $product
+            ], 200);
+        } else {
+            return response()->json([
+                'Message' => 'Produk tidak ada'
+            ], 404);
+        }
+    }
+    public function store(Request $request)
+    {
+        $product =  Product::create([
+            'name' => $request->name,
+            'price' => $request->price,
+            'rating' => $request->rating,
+            'quantity' => $request->quantity,
+        ]);
+        if ($product) {
+            return response()->json([
+                'Message' => 'Produk berhasil dismpan',
+                'data' => $product
+            ], 200);
+        } else {
+            return response()->json([
+                'Message' => 'Produk gagal disimpan'
+            ], 401);
+        }
+    }
+    public function destroy($id)
+    {
+        $product = Product::find($id);
+        if ($product) {
+            $product->delete();
+            return response()->json([
+                'Message' => 'Produk berhasil di hapus',
             ], 200);
         } else {
             return response()->json([
